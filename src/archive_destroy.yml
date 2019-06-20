@@ -1,0 +1,144 @@
+name: archive_destroy
+icon: product_item
+label: 销毁
+enable_search: true
+fields:
+  destroy_title:
+    type: text
+    label: 标题
+    is_name: true
+    is_wide: true
+    required: true
+    searchable: true
+    index: true
+    name: destroy_title
+  destroy_category:
+    type: select
+    label: 档案门类
+    options:
+      - label: 文书档案
+        value: archive_wenshu
+      - label: 科技档案
+        value: archive_keji
+      - label: 科技底图
+        value: archive_kejiditu
+      - label: 会计档案
+        value: archive_kuaiji
+      - label: 荣誉档案
+        value: archive_rongyu
+      - label: 声像档案
+        value: archive_shengxiang
+      - label: 电子档案
+        value: archive_dianzi
+      - label: 审计档案
+        value: archive_shenji
+    allowedValues:
+      - archive_wenshu
+      - destroy_category
+      - archive_keji
+      - archive_kejiditu
+      - archive_kuaiji
+      - archive_rongyu
+      - archive_shengxiang
+      - archive_dianzi
+      - archive_shenji
+    required: true
+    name: destroy_category
+    filterable: true
+  destroy_state:
+    type: text
+    label: 销毁状态
+    defaultValue: 未销毁
+    omit: true
+    name: destroy_state
+  destroy_reason:
+    label: 销毁原因
+    type: textarea
+    is_wide: true
+    name: destroy_reason
+  destroy_time:
+    type: datetime
+    label: 销毁时间
+    omit: true
+    name: destroy_time
+  destroyed_by:
+    type: lookup
+    label: 销毁人
+    reference_to: users
+    omit: true
+    name: destroyed_by
+    filterable: true
+list_views:
+  all:
+    label: 全部
+    filter_scope: space
+    columns:
+      - destroy_title
+      - destroy_reason
+      - destroy_state
+      - destroy_time
+      - destroyed_by
+triggers:
+  before.insert.server.default:
+    'on': server
+    when: before.insert
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (userId, doc) {
+              return doc.destroy_state = "未销毁";
+            }
+permission_set:
+  user:
+    allowCreate: false
+    allowDelete: false
+    allowEdit: false
+    allowRead: false
+    modifyAllRecords: false
+    viewAllRecords: false
+  admin:
+    allowCreate: true
+    allowDelete: true
+    allowEdit: true
+    allowRead: true
+    modifyAllRecords: true
+    viewAllRecords: true
+actions:
+  destroy:
+    label: 执行销毁
+    visible: true
+    'on': record
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (object_name, record_id, fields) {
+              var space;
+              space = Session.get("spaceId");
+              return Meteor.call("archive_destroy", record_id, space, function (error, result) {
+                if (result) {
+                  swal("销毁成功");
+                  return;
+                } else {
+                  swal("销毁失败");
+                  return;
+                }
+
+                if (error) {
+                  swal(error);
+                }
+              });
+            }
+    _todo: |-
+      function (object_name, record_id, fields) {
+              var space;
+              space = Session.get("spaceId");
+              return Meteor.call("archive_destroy", record_id, space, function (error, result) {
+                if (result) {
+                  swal("销毁成功");
+                  return;
+                } else {
+                  swal("销毁失败");
+                  return;
+                }
+
+                if (error) {
+                  swal(error);
+                }
+              });
+            }

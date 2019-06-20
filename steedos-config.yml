@@ -1,0 +1,21 @@
+env:
+  PORT: 5000
+  ROOT_URL: http://127.0.0.1:5000/
+datasources:
+  default:
+    connection:
+      url: mongodb://192.168.0.21/qhd-beta
+    objectFiles:
+      - "./src"
+    appFiles:
+      - "./src/archive.app.yml"
+public:
+  cfs:
+    store: "local"
+    local:
+      folder: "/storage"
+  webservices:
+    workflow:
+      url: "http://steedos.ticp.net:8888/"
+cron:
+  instancerecordqueue_interval: 10000

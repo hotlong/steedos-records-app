@@ -1,0 +1,17 @@
+_id: records
+name: 档案管理
+description: 文书管理、文书传统、科技档案、科技底图、会计档案、声像档案、电子档案、荣誉档案、审计档案、合同档案、人事档案
+icon_slds: metrics
+is_creator: true
+objects: 
+  - archive_wenshu
+  - archive_chuantong
+  - archive_keji
+  - archive_kejiditu
+  - archive_kuaiji
+  - archive_shengxiang
+  - archive_dianzi
+  - archive_rongyu
+  - archive_shenji
+  - archive_hetong
+  - archive_renshi

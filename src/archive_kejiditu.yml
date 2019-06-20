@@ -1,0 +1,150 @@
+name: archive_kejiditu
+icon: record
+label: 科技底图
+enable_search: true
+enable_files: true
+enable_api: true
+fields:
+  total_catalog_code:
+    type: text
+    required: true
+    label: 底图总目录号
+    name: total_catalog_code
+  document_code:
+    type: text
+    label: 底图号
+    name: document_code
+  title:
+    type: textarea
+    label: 底图名称
+    is_wide: true
+    is_name: true
+    required: true
+    sortable: true
+    searchable: true
+    name: title
+  retention_peroid:
+    type: master_detail
+    label: 保管期限
+    reference_to: archive_retention
+    sortable: true
+    name: retention_peroid
+    filterable: true
+  security_classification:
+    type: select
+    label: 密级
+    defaultValue: 非密
+    options:
+      - label: 绝密
+        value: 绝密
+      - label: 机密
+        value: 机密
+      - label: 秘密
+        value: 秘密
+      - label: 非密
+        value: 非密
+    sortable: true
+    name: security_classification
+    filterable: true
+  archive_date:
+    type: date
+    required: true
+    label: 归档日期
+    name: archive_date
+  compile_unit:
+    type: text
+    required: true
+    label: 编制单位
+    name: compile_unit
+  compile_date:
+    type: date
+    label: 编制时间
+    name: compile_date
+  piece_number:
+    type: number
+    label: 张数
+    required: true
+    name: piece_number
+  storage_location:
+    type: text
+    required: true
+    is_wide: true
+    label: 存放位置
+    name: storage_location
+  proportion:
+    type: text
+    label: 比例
+    name: proportion
+  paper_type:
+    type: text
+    label: 纸类
+    name: paper_type
+  reason_text:
+    type: text
+    is_wide: true
+    label: 原因和文据
+    name: reason_text
+  annotation:
+    type: textarea
+    label: 备注
+    is_wide: true
+    name: annotation
+  produce_date:
+    type: date
+    required: true
+    label: 处理日期
+    name: produce_date
+  print_page_code:
+    type: number
+    label: 打印页号
+    name: print_page_code
+  utilization:
+    type: text
+    label: 使用频率
+    name: utilization
+list_views:
+  default:
+    columns:
+      - total_catalog_code
+      - document_code
+      - title
+      - retention_peroid
+      - security_classification
+      - archive_date
+      - compile_unit
+      - compile_date
+      - piece_number
+      - produce_date
+      - print_page_code
+      - utilization
+  recent:
+    label: 最近查看
+    filter_scope: space
+  all:
+    label: 全部
+    filter_scope: space
+permission_set:
+  user:
+    allowCreate: false
+    allowDelete: false
+    allowEdit: false
+    allowRead: true
+    modifyAllRecords: false
+    viewAllRecords: true
+    list_views:
+      - default
+      - recent
+      - all
+      - borrow
+  admin:
+    allowCreate: true
+    allowDelete: false
+    allowEdit: true
+    allowRead: true
+    modifyAllRecords: false
+    viewAllRecords: true
+    list_views:
+      - default
+      - recent
+      - all
+      - borrow

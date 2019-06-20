@@ -1,0 +1,32 @@
+{
+  "name": "@steedos-app/steedos-records-app",
+  "version": "1.0.0",
+  "description": "record-management-system",
+  "main": "steedos-app/index.js",
+  "scripts": {
+    "start": "node server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steedos/steedos-records-app.git"
+  },
+  "author": "Jack Zhuang",
+  "license": "ISC",
+  "dependencies": {
+    "@steedos/meteor-bundle-runner": "^1.1.6",
+    "@steedos/objectql": "^0.0.17",
+    "steedos-server": "^1.2.8"
+  },
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/steedos/steedos-records-app/issues"
+  },
+  "homepage": "https://github.com/steedos/steedos-records-app#readme",
+  "resolutions": {
+    "graphql": "^14.1.1",
+    "@steedos/objectql": "^0.0.17",
+    "@steedos/core": "^1.1.19",
+    "@steedos/auth": "^1.0.4"
+  }
+}

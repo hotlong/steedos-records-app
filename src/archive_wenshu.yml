@@ -1,0 +1,838 @@
+name: archive_wenshu
+icon: record
+label: 文书简化
+enable_search: true
+enable_files: true
+enable_api: true
+enable_tree: false
+filter_company: true
+fields:
+  archival_category_code:
+    type: text
+    label: 档案门类代码
+    defaultValue: WS
+    name: archival_category_code
+  fonds_constituting_unit_name:
+    type: text
+    label: 立档单位名称
+    defaultValue: 河北港口集团有限公司
+    name: fonds_constituting_unit_name
+  aggregation_level:
+    type: select
+    label: 聚合层次
+    defaultValue: 文件
+    options:
+      - label: 案卷
+        value: 案卷
+      - label: 文件
+        value: 文件
+    allowedValues:
+      - 案卷
+      - 文件
+    filterable: false
+    name: aggregation_level
+  electronic_record_code:
+    type: text
+    label: 电子文件号
+    omit: true
+    name: electronic_record_code
+  archival_code:
+    type: text
+    label: 档号
+    omit: true
+    searchable: true
+    group: 档号
+    name: archival_code
+  fonds_name:
+    type: master_detail
+    label: 全宗名称
+    reference_to: archive_fonds
+    searchable: false
+    filterable: false
+    group: 档号
+    name: fonds_name
+  year:
+    type: text
+    label: 年度
+    sortable: true
+    searchable: true
+    default_width: 80
+    group: 档号
+    name: year
+  retention_peroid:
+    type: master_detail
+    label: 保管期限
+    reference_to: archive_retention
+    sortable: true
+    searchable: true
+    default_width: 70
+    group: 档号
+    name: retention_peroid
+    filterable: true
+  organizational_structure:
+    type: master_detail
+    label: 机构
+    reference_to: archive_organization
+    searchable: true
+    default_width: 260
+    group: 档号
+    name: organizational_structure
+    filterable: true
+  item_number:
+    type: number
+    label: 件号
+    sortable: true
+    searchable: true
+    default_width: 70
+    group: 档号
+    name: item_number
+  title:
+    type: text
+    label: 题名
+    is_wide: true
+    is_name: true
+    required: true
+    searchable: true
+    default_width: 400
+    group: 内容描述
+    name: title
+  document_number:
+    type: text
+    label: 文号
+    searchable: true
+    default_width: 260
+    group: 内容描述
+    name: document_number
+  document_date:
+    type: date
+    label: 文件日期
+    format: YYYYMMDD
+    sortable: true
+    searchable: true
+    default_width: 120
+    group: 内容描述
+    name: document_date
+  category_code:
+    type: master_detail
+    label: 类别号
+    reference_to: archive_classification
+    searchable: true
+    group: 档号
+    filterable: false
+    name: category_code
+  document_sequence_number:
+    type: number
+    label: 文档序号
+    group: 档号
+    name: document_sequence_number
+  parallel_title:
+    type: text
+    label: 并列题名
+    searchable: true
+    group: 内容描述
+    name: parallel_title
+  other_title_information:
+    type: text
+    label: 说明题名文字
+    searchable: true
+    group: 内容描述
+    name: other_title_information
+  annex_title:
+    type: textarea
+    label: 附件题名
+    searchable: true
+    group: 内容描述
+    name: annex_title
+  main_dept:
+    type: text
+    label: 主办部室
+    searchable: true
+    group: 内容描述
+    name: main_dept
+  descriptor:
+    type: text
+    label: 主题词
+    is_wide: true
+    group: 内容描述
+    name: descriptor
+  keyword:
+    type: text
+    label: 关键词
+    omit: true
+    group: 内容描述
+    name: keyword
+  abstract:
+    type: text
+    label: 摘要
+    searchable: true
+    group: 内容描述
+    name: abstract
+  personal_name:
+    type: text
+    label: 人名
+    searchable: true
+    group: 内容描述
+    name: personal_name
+  author:
+    type: text
+    label: 责任者
+    searchable: true
+    default_width: 200
+    group: 内容描述
+    name: author
+  prinpipal_receiver:
+    type: text
+    label: 主送
+    searchable: true
+    group: 内容描述
+    name: prinpipal_receiver
+  other_receivers:
+    type: text
+    label: 抄送
+    group: 内容描述
+    name: other_receivers
+  report:
+    type: text
+    label: 抄报
+    group: 内容描述
+    name: report
+  security_classification:
+    type: select
+    label: 密级
+    defaultValue: 公开
+    options:
+      - label: 公开
+        value: 公开
+      - label: 限制
+        value: 限制
+      - label: 秘密
+        value: 秘密
+      - label: 机密
+        value: 机密
+      - label: 绝密
+        value: 绝密
+      - label: 非密
+        value: 非密
+      - label: 普通
+        value: 普通
+    allowedValues:
+      - 公开
+      - 限制
+      - 秘密
+      - 机密
+      - 绝密
+      - 非密
+      - 普通
+    searchable: true
+    group: 内容描述
+    name: security_classification
+    filterable: true
+  secrecy_period:
+    type: select
+    label: 保密期限
+    options:
+      - label: 10年
+        value: 10年
+      - label: 20年
+        value: 20年
+      - label: 30年
+        value: 30年
+    allowedValues:
+      - 10年
+      - 20年
+      - 30年
+    searchable: false
+    filterable: false
+    group: 内容描述
+    name: secrecy_period
+  applicant_organization_name:
+    type: text
+    label: 拟稿单位
+    searchable: true
+    group: 内容描述
+    name: applicant_organization_name
+  applicant_name:
+    type: text
+    label: 拟稿人
+    searchable: true
+    group: 内容描述
+    name: applicant_name
+  reference:
+    type: text
+    label: 参见
+    searchable: true
+    group: 内容描述
+    filterable: false
+    name: reference
+  destroy_date:
+    type: date
+    label: 销毁期限
+    format: YYYYMMDD
+    omit: true
+    group: 内容描述
+    name: destroy_date
+  destroy_date_timestamp:
+    type: number
+    label: 销毁期限时间戳
+    hidden: true
+    group: 内容描述
+    name: destroy_date_timestamp
+  annotation:
+    type: textarea
+    label: 备注
+    is_wide: true
+    group: 内容描述
+    name: annotation
+  document_aggregation:
+    type: select
+    label: 文件组合类型
+    defaultValue: 单件
+    options:
+      - label: 单件
+        value: 单件
+      - label: 组合文件
+        value: 组合文件
+    allowedValues:
+      - 单件
+      - 组合文件
+    group: 形式特征
+    filterable: false
+    name: document_aggregation
+  total_number_of_pages:
+    type: number
+    label: 页数
+    group: 形式特征
+    name: total_number_of_pages
+  language:
+    type: text
+    label: 语种
+    defaultValue: 汉语
+    group: 形式特征
+    name: language
+  document_type:
+    type: text
+    label: 文件类型
+    searchable: true
+    group: 形式特征
+    filterable: false
+    name: document_type
+  produce_flag:
+    type: select
+    label: 处理标志
+    defaultValue: 在档
+    options:
+      - label: 在档
+        value: 在档
+      - label: 暂存
+        value: 暂存
+      - label: 移出
+        value: 移出
+      - label: 销毁
+        value: 销毁
+      - label: 出借
+        value: 出借
+    allowedValues:
+      - 在档
+      - 暂存
+      - 移出
+      - 销毁
+      - 出借
+    group: 形式特征
+    filterable: false
+    name: produce_flag
+  orignal_document_creation_way:
+    type: text
+    label: 电子档案生成方式
+    defaultValue: 原生
+    options:
+      - label: 数字化
+        value: 数字化
+      - label: 原生
+        value: 原生
+    allowedValues:
+      - 数字化
+      - 原生
+    group: 形式特征
+    name: orignal_document_creation_way
+  document_status:
+    type: select
+    label: 文件状态
+    defaultValue: 电子归档
+    options:
+      - label: 不归档
+        value: 不归档
+      - label: 电子归档
+        value: 电子归档
+      - label: 暂存
+        value: 暂存
+      - label: 待归档
+        value: 待归档
+      - label: 实物归档
+        value: 实物归档
+    allowedValues:
+      - 不归档
+      - 电子归档
+      - 待归档
+      - 暂存
+      - 实物归档
+    group: 形式特征
+    filterable: false
+    name: document_status
+  archive_dept:
+    type: text
+    label: 归档部门
+    default_width: 115
+    group: 形式特征
+    name: archive_dept
+  archive_date:
+    type: date
+    label: 归档日期
+    searchable: true
+    group: 形式特征
+    name: archive_date
+  signature_rules:
+    type: text
+    label: 签名规则
+    omit: true
+    group: 电子签名
+    name: signature_rules
+  signature_time:
+    type: date
+    label: 签名时间
+    omit: true
+    group: 电子签名
+    name: signature_time
+  signer:
+    type: text
+    label: 签名人
+    omit: true
+    group: 电子签名
+    name: signer
+  signature_algorithmidentifier:
+    type: text
+    label: 签名算法标识
+    omit: true
+    group: 电子签名
+    name: signature_algorithmidentifier
+  signature:
+    type: text
+    label: 签名结果
+    omit: true
+    is_wide: true
+    group: 电子签名
+    name: signature
+  certificate:
+    type: text
+    label: 证书
+    omit: true
+    is_wide: true
+    group: 电子签名
+    name: certificate
+  certificate_reference:
+    type: text
+    label: 证书引证
+    omit: true
+    group: 电子签名
+    name: certificate_reference
+  physical_record_characteristics:
+    type: text
+    label: 数字化对象形态
+    defaultValue: PDF
+    group: 数字化属性
+    name: physical_record_characteristics
+  scanning_resolution:
+    type: text
+    label: 扫描分辨率
+    defaultValue: 220dpi
+    group: 数字化属性
+    name: scanning_resolution
+  scanning_color_model:
+    type: text
+    label: 扫描色彩模式
+    defaultValue: 彩色
+    group: 数字化属性
+    name: scanning_color_model
+  image_compression_scheme:
+    type: text
+    label: 图像压缩方案
+    defaultValue: 无损压缩
+    group: 数字化属性
+    name: image_compression_scheme
+  device_type:
+    type: text
+    label: 设备类型
+    defaultValue: ''
+    group: 数字化设备信息
+    name: device_type
+  device_manufacturer:
+    type: text
+    label: 设备制造商
+    defaultValue: ''
+    group: 数字化设备信息
+    name: device_manufacturer
+  device_model_number:
+    type: text
+    label: 设备型号
+    defaultValue: ''
+    group: 数字化设备信息
+    name: device_model_number
+  device_model_serial_number:
+    type: text
+    label: 设备序列号
+    defaultValue: ''
+    group: 数字化设备信息
+    name: device_model_serial_number
+  software_type:
+    type: text
+    label: 软件类型
+    defaultValue: ''
+    group: 数字化设备信息
+    name: software_type
+  software_name:
+    type: text
+    label: 软件名称
+    defaultValue: ''
+    group: 数字化设备信息
+    name: software_name
+  current_location:
+    type: text
+    label: 当前位置
+    defaultValue: \\192.168.0.151\beta\data\oafile
+    is_wide: true
+    group: 存储位置
+    name: current_location
+  offline_medium_identifier:
+    type: text
+    label: 脱机载体编号
+    group: 存储位置
+    name: offline_medium_identifier
+  offline_medium_storage_location:
+    type: text
+    label: 脱机载体存址
+    group: 存储位置
+    name: offline_medium_storage_location
+  intelligent_property_statement:
+    type: text
+    label: 知识产权说明
+    group: 权限管理
+    name: intelligent_property_statement
+  control_identifier:
+    type: select
+    label: 控制标识
+    options:
+      - label: 开放
+        value: 开放
+      - label: 控制
+        value: 控制
+    allowedValues:
+      - 开放
+      - 控制
+    group: 权限管理
+    filterable: false
+    name: control_identifier
+  authorized_agent:
+    type: text
+    label: 授权对象
+    group: 权限管理
+    name: authorized_agent
+  permission_assignment:
+    type: select
+    label: 授权行为
+    options:
+      - label: 公布
+        value: 公布
+      - label: 复制
+        value: 复制
+      - label: 浏览
+        value: 浏览
+      - label: 解密
+        value: 解密
+    allowedValues:
+      - 公布
+      - 复制
+      - 浏览
+      - 解密
+    group: 权限管理
+    filterable: false
+    name: permission_assignment
+  agent_type:
+    type: select
+    label: 机构人员类型
+    defaultValue: 部门
+    options:
+      - label: 单位
+        value: 单位
+      - label: 部门
+        value: 部门
+      - label: 个人
+        value: 个人
+    allowedValues:
+      - 单位
+      - 部门
+      - 个人
+    group: 机构人员
+    filterable: false
+    name: agent_type
+  agent_name:
+    type: text
+    label: 机构人员名称
+    group: 机构人员
+    name: agent_name
+  organization_code:
+    type: text
+    label: 组织机构代码
+    group: 机构人员
+    name: organization_code
+  agent_belongs_to:
+    type: text
+    label: 机构人员隶属
+    group: 机构人员
+    name: agent_belongs_to
+  related_archives:
+    label: 关联文件
+    type: lookup
+    reference_to: archive_wenshu
+    multiple: true
+    is_wide: true
+    group: 关联文件
+    filterable: false
+    name: related_archives
+  old_id:
+    type: text
+    label: 老系统ID
+    hidden: true
+    name: old_id
+  external_id:
+    type: text
+    label: 表单ID
+    hidden: true
+    name: external_id
+  is_received:
+    type: boolean
+    label: 是否接收
+    defaultValue: false
+    readonly: true
+    omit: true
+    name: is_received
+  received:
+    type: datetime
+    label: 接收时间
+    hidden: true
+    name: received
+  received_by:
+    type: lookup
+    label: 接收人
+    reference_to: users
+    hidden: true
+    name: received_by
+    filterable: true
+  is_transfered:
+    type: boolean
+    label: 是否移交
+    hidden: true
+    name: is_transfered
+  transfered:
+    type: datetime
+    label: 移交时间
+    hidden: true
+    name: transfered
+  transfered_by:
+    type: lookup
+    label: 移交人
+    reference_to: users
+    hidden: true
+    name: transfered_by
+    filterable: true
+  archive_transfer_id:
+    type: master_detail
+    label: 移交单
+    reference_to: archive_transfer
+    group: 移交
+    filterable: false
+    name: archive_transfer_id
+  is_destroyed:
+    type: boolean
+    label: 是否销毁
+    hidden: true
+    name: is_destroyed
+  destroyed:
+    type: datetime
+    label: 实际销毁时间
+    hidden: true
+    name: destroyed
+  destroyed_by:
+    type: lookup
+    label: 销毁人
+    reference_to: users
+    hidden: true
+    name: destroyed_by
+    filterable: true
+  archive_destroy_id:
+    type: master_detail
+    label: 销毁单
+    filters:
+      - - destroy_state
+        - eq
+        - 未销毁
+    depend_on:
+      - destroy_state
+    reference_to: archive_destroy
+    group: 销毁
+    filterable: false
+    name: archive_destroy_id
+  is_borrowed:
+    type: boolean
+    defaultValue: false
+    label: 是否借阅
+    hidden: true
+    name: is_borrowed
+  borrowed:
+    type: datetime
+    label: 借阅时间
+    hidden: true
+    name: borrowed
+  borrowed_by:
+    type: lookup
+    label: 借阅人
+    reference_to: users
+    hidden: true
+    name: borrowed_by
+    filterable: true
+  related_modified:
+    type: datetime
+    label: 附属更新时间
+    hidden: true
+    name: related_modified
+  has_xml:
+    type: boolean
+    label: 是否封装xml
+    hidden: true
+    name: has_xml
+  company:
+    type: master_detail
+    label: 所属公司
+    reference_to: organizations
+    hidden: true
+    name: company
+    filterable: true
+list_views:
+  all:
+    label: 已归档
+    filter_scope: space
+    filters:
+      - - is_received
+        - =
+        - true
+      - - is_destroyed
+        - <>
+        - true
+    columns:
+      - year
+      - retention_peroid
+      - organizational_structure
+      - item_number
+      - title
+      - document_number
+      - document_date
+      - author
+      - security_classification
+      - archive_dept
+      - document_type
+    filter_fields:
+      - year
+      - title
+      - document_date
+      - document_number
+    sort:
+      - - year
+        - desc
+      - - retention_peroid
+        - asc
+      - - archive_dept
+        - asc
+      - - organizational_structure
+        - asc
+      - - item_number
+        - asc
+  receive:
+    label: 待接收
+    filter_scope: space
+    filters:
+      - - is_received
+        - =
+        - false
+    columns:
+      - year
+      - retention_peroid
+      - organizational_structure
+      - item_number
+      - title
+      - document_number
+      - document_date
+      - author
+      - security_classification
+      - archive_dept
+      - document_type
+    filter_fields:
+      - year
+      - title
+      - document_date
+      - document_number
+    sort:
+      - - year
+        - desc
+      - - document_number
+        - asc
+  destroy:
+    label: 待销毁
+    filter_scope: space
+    filters:
+      - - is_received
+        - =
+        - true
+      - - destroy_date_timestamp
+        - <=
+        - 1561012983842
+      - - is_destroyed
+        - =
+        - false
+    columns:
+      - year
+      - title
+      - document_date
+      - destroy_date
+      - archive_destroy_id
+    filter_fields:
+      - year
+      - title
+      - document_date
+      - document_number
+permission_set:
+  user:
+    allowCreate: false
+    allowDelete: false
+    allowEdit: false
+    allowRead: true
+    modifyAllRecords: false
+    viewAllRecords: true
+    list_views:
+      - default
+      - recent
+      - all
+      - borrow
+    actions:
+      - borrow
+  admin:
+    allowCreate: true
+    allowDelete: true
+    allowEdit: true
+    allowRead: true
+    modifyAllRecords: true
+    viewAllRecords: true
+    list_views:
+      - default
+      - recent
+      - all
+      - borrow
+    actions:
+      - borrow
