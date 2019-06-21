@@ -836,3 +836,311 @@ permission_set:
       - borrow
     actions:
       - borrow
+triggers:
+  after.insert.server.default:
+    'on': server
+    when: after.insert
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (userId, doc) {
+              set_init(doc._id);
+              set_electronic_record_code(doc._id);
+              set_company(doc._id);
+              set_retention(doc);
+              set_category_code(doc);
+              set_destory(doc);
+              set_hasXml(doc._id);
+              return true;
+            }
+  after.update.server.default:
+    'on': server
+    when: after.update
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (userId, doc, fieldNames, modifier, options) {
+              var ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8;
+
+              if ((ref = modifier['$set']) != null ? ref.fonds_name : void 0) {
+                set_company(doc._id);
+              }
+
+              if (((ref1 = modifier['$set']) != null ? ref1.item_number : void 0) || ((ref2 = modifier['$set']) != null ? ref2.organizational_structure : void 0) || ((ref3 = modifier['$set']) != null ? ref3.retention_peroid : void 0) || ((ref4 = modifier['$set']) != null ? ref4.fonds_name : void 0) || ((ref5 = modifier['$set']) != null ? ref5.year : void 0)) {
+                set_archivecode(doc._id);
+              }
+
+              if (((ref6 = modifier['$set']) != null ? ref6.retention_peroid : void 0) || ((ref7 = modifier['$set']) != null ? ref7.document_date : void 0)) {
+                set_destory(doc);
+              }
+
+              if ((ref8 = modifier['$set']) != null ? ref8.archive_dept : void 0) {
+                set_category_code(doc);
+              }
+
+              set_hasXml(doc._id);
+              return set_audit(doc != null ? doc._id : void 0, doc != null ? doc.space : void 0, userId);
+            }
+actions:
+  number_adjuct:
+    label: 编号调整
+    visible: !<tag:yaml.org,2002:js/function> |-
+      function () {
+              var permissions;
+              permissions = Creator.getPermissions();
+
+              if (permissions) {
+                return permissions["allowCreate"];
+              }
+            }
+    'on': list
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (object_name) {
+              var init_num, ref, ref1;
+
+              if (((ref = Creator.TabularSelectedIds) != null ? ref[object_name].length : void 0) === 0) {
+                swal("请先选择要接收的档案");
+                return;
+              }
+
+              init_num = prompt("输入初始件号值");
+
+              if (init_num) {
+                return Meteor.call("archive_item_number", object_name, (ref1 = Creator.TabularSelectedIds) != null ? ref1[object_name] : void 0, init_num, function (error, result) {
+                  var dxDataGridInstance, text;
+
+                  if (result) {
+                    dxDataGridInstance = $(".gridContainer").dxDataGrid().dxDataGrid('instance');
+                    Template.creator_grid.refresh(dxDataGridInstance);
+                    text = "编号已更新";
+                    return swal(text);
+                  }
+                });
+              }
+            }
+    _todo: |-
+      function (object_name) {
+              var init_num, ref, ref1;
+
+              if (((ref = Creator.TabularSelectedIds) != null ? ref[object_name].length : void 0) === 0) {
+                swal("请先选择要接收的档案");
+                return;
+              }
+
+              init_num = prompt("输入初始件号值");
+
+              if (init_num) {
+                return Meteor.call("archive_item_number", object_name, (ref1 = Creator.TabularSelectedIds) != null ? ref1[object_name] : void 0, init_num, function (error, result) {
+                  var dxDataGridInstance, text;
+
+                  if (result) {
+                    dxDataGridInstance = $(".gridContainer").dxDataGrid().dxDataGrid('instance');
+                    Template.creator_grid.refresh(dxDataGridInstance);
+                    text = "编号已更新";
+                    return swal(text);
+                  }
+                });
+              }
+            }
+    _visible: |-
+      function () {
+              var permissions;
+              permissions = Creator.getPermissions();
+
+              if (permissions) {
+                return permissions["allowCreate"];
+              }
+            }
+  receive:
+    label: 接收
+    visible: !<tag:yaml.org,2002:js/function> |-
+      function () {
+              var permissions;
+
+              if (Session.get("list_view_id") === "receive") {
+                permissions = Creator.getPermissions();
+
+                if (permissions) {
+                  return permissions["allowCreate"];
+                }
+              }
+            }
+    'on': list
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (object_name) {
+              var ref, ref1, space;
+
+              if (Session.get("list_view_id") === "receive") {
+                if (((ref = Creator.TabularSelectedIds) != null ? ref[object_name].length : void 0) === 0) {
+                  swal("请先选择要接收的档案");
+                  return;
+                }
+
+                space = Session.get("spaceId");
+                return Meteor.call("archive_receive", object_name, (ref1 = Creator.TabularSelectedIds) != null ? ref1[object_name] : void 0, space, function (error, result) {
+                  var dxDataGridInstance, text;
+
+                  if (result) {
+                    dxDataGridInstance = $(".gridContainer").dxDataGrid().dxDataGrid('instance');
+                    Template.creator_grid.refresh(dxDataGridInstance);
+                    text = "档案已接收";
+                    return swal(text);
+                  }
+                });
+              }
+            }
+    _todo: |-
+      function (object_name) {
+              var ref, ref1, space;
+
+              if (Session.get("list_view_id") === "receive") {
+                if (((ref = Creator.TabularSelectedIds) != null ? ref[object_name].length : void 0) === 0) {
+                  swal("请先选择要接收的档案");
+                  return;
+                }
+
+                space = Session.get("spaceId");
+                return Meteor.call("archive_receive", object_name, (ref1 = Creator.TabularSelectedIds) != null ? ref1[object_name] : void 0, space, function (error, result) {
+                  var dxDataGridInstance, text;
+
+                  if (result) {
+                    dxDataGridInstance = $(".gridContainer").dxDataGrid().dxDataGrid('instance');
+                    Template.creator_grid.refresh(dxDataGridInstance);
+                    text = "档案已接收";
+                    return swal(text);
+                  }
+                });
+              }
+            }
+    _visible: |-
+      function () {
+              var permissions;
+
+              if (Session.get("list_view_id") === "receive") {
+                permissions = Creator.getPermissions();
+
+                if (permissions) {
+                  return permissions["allowCreate"];
+                }
+              }
+            }
+  export2xml:
+    label: 导出XML
+    visible: false
+    'on': list
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (object_name, record_id) {
+              return Meteor.call("archive_export", object_name, function (error, result) {
+                var text;
+
+                if (result) {
+                  text = "记录导出路径：";
+                  return swal(text + result);
+                }
+              });
+            }
+    _todo: |-
+      function (object_name, record_id) {
+              return Meteor.call("archive_export", object_name, function (error, result) {
+                var text;
+
+                if (result) {
+                  text = "记录导出路径：";
+                  return swal(text + result);
+                }
+              });
+            }
+  borrow:
+    label: 借阅
+    visible: !<tag:yaml.org,2002:js/function> |-
+      function () {
+              var permissions;
+              permissions = Creator.getPermissions();
+
+              if (permissions) {
+                return !permissions["allowCreate"];
+              }
+            }
+    'on': record
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (object_name, record_id, fields) {
+              var borrower, doc, ref;
+              borrower = (ref = Creator.Collections[object_name].findOne({
+                _id: record_id
+              })) != null ? ref.borrowed_by : void 0;
+
+              if (borrower === Meteor.userId()) {
+                swal("您已借阅了此档案，归还之前无需重复借阅");
+                return;
+              }
+
+              doc = Archive.createBorrowObject(object_name, record_id);
+              return Creator.createObject("archive_borrow", doc);
+            }
+    _todo: |-
+      function (object_name, record_id, fields) {
+              var borrower, doc, ref;
+              borrower = (ref = Creator.Collections[object_name].findOne({
+                _id: record_id
+              })) != null ? ref.borrowed_by : void 0;
+
+              if (borrower === Meteor.userId()) {
+                swal("您已借阅了此档案，归还之前无需重复借阅");
+                return;
+              }
+
+              doc = Archive.createBorrowObject(object_name, record_id);
+              return Creator.createObject("archive_borrow", doc);
+            }
+    _visible: |-
+      function () {
+              var permissions;
+              permissions = Creator.getPermissions();
+
+              if (permissions) {
+                return !permissions["allowCreate"];
+              }
+            }
+  viewxml:
+    label: 查看XML
+    visible: !<tag:yaml.org,2002:js/function> |-
+      function () {
+              var permissions;
+              permissions = Creator.getPermissions();
+
+              if (permissions) {
+                return permissions["allowCreate"];
+              }
+            }
+    'on': record
+    todo: !<tag:yaml.org,2002:js/function> |-
+      function (object_name, record_id, fields) {
+              var has_xml, ref;
+              has_xml = (ref = Creator.Collections[object_name].findOne({
+                _id: record_id
+              })) != null ? ref.has_xml : void 0;
+
+              if (has_xml) {
+                return window.location = Steedos.absoluteUrl("/view/encapsulation/xml?filename=" + record_id + ".xml");
+              } else {
+                return swal("该档案暂无XML封装文件");
+              }
+            }
+    _todo: |-
+      function (object_name, record_id, fields) {
+              var has_xml, ref;
+              has_xml = (ref = Creator.Collections[object_name].findOne({
+                _id: record_id
+              })) != null ? ref.has_xml : void 0;
+
+              if (has_xml) {
+                return window.location = Steedos.absoluteUrl("/view/encapsulation/xml?filename=" + record_id + ".xml");
+              } else {
+                return swal("该档案暂无XML封装文件");
+              }
+            }
+    _visible: |-
+      function () {
+              var permissions;
+              permissions = Creator.getPermissions();
+
+              if (permissions) {
+                return permissions["allowCreate"];
+              }
+            }
