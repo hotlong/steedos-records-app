@@ -1,0 +1,7 @@
+f_id: archive_transfer
+name: 档案移交
+description: 档案移交
+icon_slds: product_transfer
+is_creator: true
+objects: 
+  - archive_transfer

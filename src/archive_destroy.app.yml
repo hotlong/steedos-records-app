@@ -1,0 +1,7 @@
+_id: archive_destroy
+name: 档案销毁
+description: 档案销毁
+icon_slds: unmatched
+is_creator: true
+objects: 
+  - archive_destroy

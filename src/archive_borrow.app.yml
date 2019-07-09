@@ -1,0 +1,7 @@
+_id: archive_borrow
+name: 档案借阅
+description: 档案借阅
+icon_slds: today
+is_creator: true
+objects: 
+  - archive_borrow

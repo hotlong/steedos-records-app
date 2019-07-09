@@ -1,0 +1,12 @@
+_id: archive_setting
+name: 档案维护
+description: 档案机构、档案全宗、日志记录、档案分类、保管期限、档案规则
+icon_slds: resource_skill
+is_creator: true
+objects: 
+  - archive_organization
+  - archive_fonds
+  - archive_audit
+  - archive_classification
+  - archive_retention
+  - archive_rules

@@ -1,0 +1,7 @@
+_id: archive_statistics
+name: 档案统计
+description: 档案统计
+icon_slds: report
+is_creator: true
+objects: 
+  - reports
