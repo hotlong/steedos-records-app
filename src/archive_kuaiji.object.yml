@@ -144,5 +144,17 @@ fields:
     name: start_end_page_number
 list_views: {}
 permission_set:
-  admin: {}
-  user: {}
+  user:
+    allowCreate: false
+    allowDelete: false
+    allowEdit: false
+    allowRead: true
+    modifyAllRecords: false
+    viewAllRecords: false
+  admin:
+    allowCreate: true
+    allowDelete: true
+    allowEdit: true
+    allowRead: true
+    modifyAllRecords: true
+    viewAllRecords: true

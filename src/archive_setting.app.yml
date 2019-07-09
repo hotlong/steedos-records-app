@@ -10,3 +10,4 @@ objects:
   - archive_classification
   - archive_retention
   - archive_rules
+  - archive_entity_relation
